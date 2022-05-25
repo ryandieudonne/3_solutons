@@ -1,0 +1,56 @@
+sed solutiion:
+
+#!/bin/bash
+HOW_MANY_LINES=$(wc -l < "/home/ryan/log.txt")
+HALF_FILE=$(expr $HOW_MANY_LINES / 2)
+FILE="/home/ryan/log.txt"
+MAX_SIZE=700  # kilobytes
+
+ACTUAL_SIZE=$(du -k "$FILE" | cut -f1)
+if [ $ACTUAL_SIZE -ge $MAX_SIZE ]; then
+	sed -i "1,${HALF_FILE}d" $FILE
+    else
+        echo size is under $MAX_SIZE kilobytes
+    fi
+
+
+
+
+
+split solution:
+
+#!/bin/bash
+HOW_MANY_LINES=$(wc -l < "/home/ryan/log.txt")
+HALF_FILE=$(expr $HOW_MANY_LINES / 2)
+FILE="/home/ryan/log.txt"
+MAX_SIZE=700  # kilobytes
+
+ACTUAL_SIZE=$(du -k "$FILE" | cut -f1)
+if [ $ACTUAL_SIZE -ge $MAX_SIZE ]; then
+        split -l $HALF_FILE $FILE split_file
+        rm /home/ryan/density/split_fileaa
+        mv /home/ryan/density/split_fileab $FILE
+    else
+        echo size is under $MAX_SIZE kilobytes
+    fi
+
+
+
+
+tail solution:
+
+#!/bin/bash
+HOW_MANY_LINES=$(wc -l < "/home/ryan/log.txt")
+HALF_FILE=$(expr $HOW_MANY_LINES / 2)
+FILE="/home/ryan/log.txt"
+MAX_SIZE=700  # kilobytes
+
+ACTUAL_SIZE=$(du -k "$FILE" | cut -f1)
+if [ $ACTUAL_SIZE -ge $MAX_SIZE ]; then
+	tail -n $HALF_FILE $FILE >> move.txt | mv move.txt $FILE
+    else
+        echo size is under $MAX_SIZE kilobytes
+    fi
+
+   
+
